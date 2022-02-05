@@ -18,10 +18,18 @@ class Customer(models.Model):
     membeship = models.CharField(max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
 
 
+    # Table options
+    class Meta:
+        db_table = 'store_customers'
+        indexes = [
+            models.Index(fields=['last_name', 'first_name'])
+        ]
+
+
 class Address(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    zip = models.PositiveIntegerField(max_length=6)
+    zip = models.PositiveIntegerField(default=0)
     # One To One
     # customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
     # One To Many
