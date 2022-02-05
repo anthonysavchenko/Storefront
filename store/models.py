@@ -19,11 +19,11 @@ class Customer(models.Model):
 
 
     # Table options
-    class Meta:
-        db_table = 'store_customers'
-        indexes = [
-            models.Index(fields=['last_name', 'first_name'])
-        ]
+    # class Meta:
+    #     db_table = 'store_customers'
+    #     indexes = [
+    #         models.Index(fields=['last_name', 'first_name'])
+    #     ]
 
 
 class Address(models.Model):
