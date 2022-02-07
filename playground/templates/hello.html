@@ -5,5 +5,41 @@
         {% else %}
         <h1>Hello World</h1>
         {% endif %}
+        <strong>{{ result }}</strong>
+        <ul>
+            {% for order_item in order_items %}
+                <li>{{ order_item.order.placed_at }} - {{ order_item.order.customer.email }} | {{ order_item.product.title }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for order_item in order_item_tuple %}
+                <li>{{ order_item }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for order in orders %}
+                <li>{{ order.placed_at }} - {{ order.customer.email }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for collection in collections %}
+                <li>{{ collection.title }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for customer in customers %}
+                <li>{{ customer.email }}</li>
+            {% endfor %}
+        </ul>
+
+        <ul>
+            {% for product in products %}
+                <li>{{ product.title }} ${{ product.unit_price }} - {{ product.collection.title }}</li>
+            {% endfor %}
+        </ul>
     </body>
 </html>
