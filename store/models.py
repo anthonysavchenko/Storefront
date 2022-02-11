@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Customer(models.Model):
@@ -17,13 +18,15 @@ class Customer(models.Model):
     birth_date = models.DateField(null=True)
     membership = models.CharField(max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
 
-
     # Table options
     # class Meta:
     #     db_table = 'store_customers'
     #     indexes = [
     #         models.Index(fields=['last_name', 'first_name'])
     #     ]
+
+    def __str__(self) -> str:
+        return f'{self.last_name} {self.first_name}'
 
 
 class Address(models.Model):
@@ -42,6 +45,9 @@ class Collection(models.Model):
     # related_name='+' - do not create reverse relationship
     featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Promotion(models.Model):
     description = models.CharField(max_length=255)
@@ -51,16 +57,20 @@ class Promotion(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
-    description = models.TextField()
-    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
-    inventory = models.IntegerField()
+    description = models.TextField(null=True, blank=True)
+    unit_price = models.DecimalField(
+        max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
+    inventory = models.IntegerField(validators=[MinValueValidator(0)])
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
     # Or in case of parent class is under child we could pass a string
     # collection = models.ForeignKey('Collection', on_delete=models.SET_NULL, null=True)
-    promotions = models.ManyToManyField(Promotion)
+    promotions = models.ManyToManyField(Promotion, blank=True)
     # Or in case of another name for reverse reference
     # promotions = models.ManyToManyField(Promotion, related_name='products')
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class Cart(models.Model):

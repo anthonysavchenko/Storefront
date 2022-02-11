@@ -41,6 +41,7 @@ if DEBUG:
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sessions',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'playground',
     'debug_toolbar',
     'store',
+    'store_custom',
     'tags',
     'likes'
 ]
@@ -92,6 +94,10 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+#
+# admin
+# anton.savchenk@mail.ru
+# 123
 
 DATABASES = {
     'default': {
