@@ -2,8 +2,7 @@ from decimal import Decimal
 
 from rest_framework import serializers
 
-from store.models import Product, Collection
-
+from store.models import Collection, Product
 
 # class CollectionSerializer(serializers.Serializer):
 #     id = serializers.IntegerField()
@@ -13,7 +12,9 @@ from store.models import Product, Collection
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'products_count']
+
+    products_count = serializers.IntegerField()
 
 
 # class ProductSerializer(serializers.Serializer):
@@ -46,6 +47,8 @@ class CollectionSerializer(serializers.ModelSerializer):
    "collection": 6
 }
 """
+
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -74,4 +77,3 @@ class ProductSerializer(serializers.ModelSerializer):
     #     instance.unit_price = validated_data.get('unit_price')
     #     instance.save()
     #     return instance
-    

@@ -64,7 +64,8 @@ class Product(models.Model):
         max_digits=6, decimal_places=2, validators=[MinValueValidator(1)])
     inventory = models.IntegerField(validators=[MinValueValidator(0)])
     last_update = models.DateTimeField(auto_now=True)
-    collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    collection = models.ForeignKey(
+        Collection, on_delete=models.PROTECT, related_name='products')
     # Or in case of parent class is under child we could pass a string
     # collection = models.ForeignKey('Collection', on_delete=models.SET_NULL, null=True)
     promotions = models.ManyToManyField(Promotion, blank=True)
